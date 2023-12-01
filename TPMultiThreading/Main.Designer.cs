@@ -53,9 +53,9 @@
             // 
             this.btnAddTrain.Location = new System.Drawing.Point(76, 35);
             this.btnAddTrain.Name = "btnAddTrain";
-            this.btnAddTrain.Size = new System.Drawing.Size(49, 23);
+            this.btnAddTrain.Size = new System.Drawing.Size(55, 23);
             this.btnAddTrain.TabIndex = 1;
-            this.btnAddTrain.Text = "Add Train";
+            this.btnAddTrain.Text = "Iniciar";
             this.btnAddTrain.UseVisualStyleBackColor = true;
             this.btnAddTrain.Click += new System.EventHandler(this.BtnAddTrain_Click);
             // 
@@ -147,7 +147,7 @@
             this.tableActiveTrains.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableActiveTrains.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableActiveTrains.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableActiveTrains.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 601F));
+            this.tableActiveTrains.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 605F));
             this.tableActiveTrains.Controls.Add(this.label5, 3, 0);
             this.tableActiveTrains.Controls.Add(this.label4, 1, 0);
             this.tableActiveTrains.Controls.Add(this.label3, 0, 0);
@@ -165,10 +165,10 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(463, 3);
+            this.label5.Location = new System.Drawing.Point(459, 3);
             this.label5.Margin = new System.Windows.Forms.Padding(3);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 19);
+            this.label5.Size = new System.Drawing.Size(53, 19);
             this.label5.TabIndex = 8;
             this.label5.Text = "Estado";
             // 
@@ -176,10 +176,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(63, 3);
+            this.label4.Location = new System.Drawing.Point(59, 3);
             this.label4.Margin = new System.Windows.Forms.Padding(3);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(110, 19);
+            this.label4.Size = new System.Drawing.Size(109, 19);
             this.label4.TabIndex = 7;
             this.label4.Text = "Estación Actual";
             this.label4.Click += new System.EventHandler(this.label4_Click);
@@ -191,7 +191,7 @@
             this.label3.Location = new System.Drawing.Point(3, 3);
             this.label3.Margin = new System.Windows.Forms.Padding(3);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 19);
+            this.label3.Size = new System.Drawing.Size(50, 19);
             this.label3.TabIndex = 6;
             this.label3.Text = "Tren #";
             // 
@@ -199,10 +199,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(263, 3);
+            this.label6.Location = new System.Drawing.Point(259, 3);
             this.label6.Margin = new System.Windows.Forms.Padding(3);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 19);
+            this.label6.Size = new System.Drawing.Size(59, 19);
             this.label6.TabIndex = 7;
             this.label6.Text = "Destino";
             // 
