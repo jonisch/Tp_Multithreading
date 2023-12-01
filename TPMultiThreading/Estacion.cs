@@ -21,7 +21,7 @@ namespace TPMultiThreading
         {
             if (tren.Direccion == Direccion.IDA) AndenIda = tren;
             else AndenVuelta = tren;
-            tren.CurrentStation = this;
+            tren.EstacionActual = this;
         }
 
         public void Partir(Tren tren)

@@ -22,20 +22,20 @@ namespace TPMultiThreading
         {
             var newTrain = new Tren
             {
-                Speed = (int)numSpeed.Value,
-                TrainName = GetMapLabel(),
-                LabelNumber = new Label { AutoSize = true },
-                LabelCurrentStation = new Label { AutoSize = true },
-                LabelDestination = new Label { AutoSize = true },
-                LabelStatus = new Label { AutoSize = true },
-                LabelCurrentCapacity = new Label { AutoSize = true }
+                Velocidad = (int)numSpeed.Value,
+                lTrenNombre = GetMapLabel(),
+                lNumeroTren = new Label { AutoSize = true },
+                lNumeroEstacionActual = new Label { AutoSize = true },
+                lDestino = new Label { AutoSize = true },
+                lEstado = new Label { AutoSize = true },
+                lCapacidadActual = new Label { AutoSize = true }
             };
 
             tableActiveTrains.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableActiveTrains.Controls.Add(newTrain.LabelNumber);
-            tableActiveTrains.Controls.Add(newTrain.LabelCurrentStation);
-            tableActiveTrains.Controls.Add(newTrain.LabelDestination);
-            tableActiveTrains.Controls.Add(newTrain.LabelStatus);
+            tableActiveTrains.Controls.Add(newTrain.lNumeroTren);
+            tableActiveTrains.Controls.Add(newTrain.lNumeroEstacionActual);
+            tableActiveTrains.Controls.Add(newTrain.lDestino);
+            tableActiveTrains.Controls.Add(newTrain.lEstado);
             tableActiveTrains.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
             _central.AddTrain(newTrain);

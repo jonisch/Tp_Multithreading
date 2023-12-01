@@ -7,79 +7,79 @@ namespace TPMultiThreading
 {
     public class Tren
     {
-        public int Number { get; set; }
-        public int CurrentCapacity { get; set; }
-        public int Speed { get; set; }
-        public string Status { get; set; }
+        public int Numero { get; set; }
+        public int CapacidadActual { get; set; }
+        public int Velocidad { get; set; }
+        public string Estado { get; set; }
         public Direccion Direccion = Direccion.IDA;
-        public bool Waiting;
-        public IEstacion CurrentStation { get; set; }
+        public bool Espera;
+        public IEstacion EstacionActual { get; set; }
 
-        public Label TrainName;
-        public Label LabelNumber;
-        public Label LabelCurrentStation;
-        public Label LabelDestination;
-        public Label LabelStatus;
-        public Label LabelCurrentCapacity;
+        public Label lTrenNombre;
+        public Label lNumeroTren;
+        public Label lNumeroEstacionActual;
+        public Label lDestino;
+        public Label lEstado;
+        public Label lCapacidadActual;
 
         private static readonly object Locker = new object();
 
-        public void Start()
+        public void Inicio()
         {
-            Central.UpdateMap(this);
-            Process();
+            Central.ActualizoMapa(this);
+            Proceso();
         }
 
-        public void Process()
+        public void Proceso()
         {
             while (true)
             {
-                LoadPeople();
-                GoNextStation();
+                CargaPersonas();
+                VoyProximaEstacion();
             }
         }
 
-        private void LoadPeople()
+        private void CargaPersonas()
         {
-            Thread.Sleep(Speed);
+            Thread.Sleep(Velocidad);
 
         }
 
-        public void Report(string status)
+        public void Reporte(string status)
         {
-            Status = status;
-            Central.UpdateStatus(this);
+            Estado = status;
+            Central.ActualizarEstado(this);
         }
 
-        private void GoNextStation()
+        private void VoyProximaEstacion()
         {
             
             lock (Locker)
             {
-                var ProximaEstacion = CurrentStation.ObtenerEstacionProxima().ObtenerNombre();
-                Report("Checking availability for " + ProximaEstacion);
-                while (!CurrentStation.ProximaEstacionDisponible(Direccion))
+                var ProximaEstacion = EstacionActual.ObtenerEstacionProxima().ObtenerNombre();
+                Reporte("Comprobando disponibilidad de " + ProximaEstacion);
+                while (!EstacionActual.ProximaEstacionDisponible(Direccion))
                 {
-                    Waiting = true;
-                    LabelStatus.ForeColor = Color.Red;
-                    Report(ProximaEstacion + " is busy. Waiting for it to be available");
+                    Espera = true;
+                    lEstado.ForeColor = Color.Red;
+                    Reporte(ProximaEstacion + " se encuentra ocupada. Aguarde a que se encuentre disponile");
                     Monitor.Wait(Locker, ObtenerTiempoEspera());
-                    LabelStatus.ForeColor = Color.DarkGreen;
+                    lEstado.ForeColor = Color.DarkGreen;
                 }
 
-                Report("Greenlighted for " + ProximaEstacion);
-                LabelStatus.ForeColor = Color.Black;
-                Waiting = false;
+                Reporte("Luz verde para " + ProximaEstacion);
+                lEstado.ForeColor = Color.Black;
+                Espera = false;
 
-                if (CurrentStation.ProximaEstacionDisponible(Direccion))
+                if (EstacionActual.ProximaEstacionDisponible(Direccion))
                 {
-                    Report("Greenlighting waiting train");
+                    Reporte("Tren esperando luz verde");
                     Monitor.PulseAll(Locker);
                 }
 
-                Report("Leaving station " + CurrentStation.ObtenerNombre());
-                CurrentStation.Partir(this);
-                Central.UpdateMap(this);
+                Reporte("Partiendo de la estacion " + EstacionActual.ObtenerNombre());
+                EstacionActual.Partir(this);
+                Central.ActualizoMapa(this);
             }
         }
 
@@ -87,7 +87,7 @@ namespace TPMultiThreading
       
         private int ObtenerTiempoEspera()
         {
-            var normalizedTime = (decimal)CurrentCapacity / 100;
+            var normalizedTime = (decimal)CapacidadActual / 100;
             return (int)normalizedTime * 5000;
         }
     }

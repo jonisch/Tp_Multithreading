@@ -22,7 +22,7 @@ namespace TPMultiThreading
         public void Arribar(Tren tren)
         {
             andenes.Add(tren);
-            tren.CurrentStation = this;
+            tren.EstacionActual = this;
         }
 
         public bool EstaDisponible(Direccion direccion)
@@ -39,13 +39,13 @@ namespace TPMultiThreading
             {
                 tren.Direccion = Direccion.VUELTA;
                 EstacionAnterior.Arribar(tren);
-                tren.TrainName.ForeColor = Color.Green;
+                tren.lTrenNombre.ForeColor = Color.Green;
             }
             else
             {
                 tren.Direccion = Direccion.IDA;
                 EstacionProxima.Arribar(tren);
-                tren.TrainName.ForeColor = Color.Yellow;
+                tren.lTrenNombre.ForeColor = Color.Yellow;
             }
         }
 

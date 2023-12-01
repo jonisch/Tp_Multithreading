@@ -92,15 +92,15 @@ namespace TPMultiThreading
                 Monitor.Wait(Locker);
                 var train = _trainDeposit.Dequeue();
                 _activeTrains.Add(train);
-                train.CurrentStation = Stations[0];
-                train.Number = _activeTrains.Count;
-                train.TrainName.Invoke(new Action(() => train.TrainName.Text = "Train #" + train.Number.ToString()));
+                train.EstacionActual = Stations[0];
+                train.Numero = _activeTrains.Count;
+                train.lTrenNombre.Invoke(new Action(() => train.lTrenNombre.Text = "Train #" + train.Numero.ToString()));
                
                 
                 
                 Stations[0].Arribar(train);
 
-                var thr = new Thread(train.Start);
+                var thr = new Thread(train.Inicio);
                 thr.Start();
 
                 Monitor.Pulse(Locker);
@@ -124,35 +124,35 @@ namespace TPMultiThreading
             }
         }
 
-        public static void UpdateStatus(Tren train)
+        public static void ActualizarEstado(Tren train)
         {
-            train.LabelNumber.Invoke(new Action(() => train.LabelNumber.Text = train.Number.ToString()));
-            train.LabelCurrentStation.Invoke(new Action(() => train.LabelCurrentStation.Text = train.CurrentStation.ObtenerNombre()));
-            train.LabelStatus.Invoke(new Action(() => train.LabelStatus.Text = train.Status));
+            train.lNumeroTren.Invoke(new Action(() => train.lNumeroTren.Text = train.Numero.ToString()));
+            train.lNumeroEstacionActual.Invoke(new Action(() => train.lNumeroEstacionActual.Text = train.EstacionActual.ObtenerNombre()));
+            train.lEstado.Invoke(new Action(() => train.lEstado.Text = train.Estado));
 
 
             var destination = train.Direccion == Direccion.IDA
-                ? train.CurrentStation.ObtenerEstacionProxima().ObtenerNombre()
-                : train.CurrentStation.ObtenerEstacionAnterior().ObtenerNombre();
+                ? train.EstacionActual.ObtenerEstacionProxima().ObtenerNombre()
+                : train.EstacionActual.ObtenerEstacionAnterior().ObtenerNombre();
 
             switch (destination)
             {
                 case null when train.Direccion == Direccion.IDA:
-                    destination = train.CurrentStation.ObtenerEstacionAnterior().ObtenerNombre();
+                    destination = train.EstacionActual.ObtenerEstacionAnterior().ObtenerNombre();
                     break;
                 case null when train.Direccion == Direccion.VUELTA:
-                    destination = train.CurrentStation.ObtenerEstacionProxima().ObtenerNombre();
+                    destination = train.EstacionActual.ObtenerEstacionProxima().ObtenerNombre();
                     break;
             }
-            train.LabelDestination.Invoke(new Action(() => train.LabelDestination.Text = destination));
+            train.lDestino.Invoke(new Action(() => train.lDestino.Text = destination));
         }
 
 
-        public static void UpdateMap(Tren train)
+        public static void ActualizoMapa(Tren train)
         {
-            var lblPos = train.CurrentStation.ObtenerCoordenadas(train);
-            train.TrainName.Invoke(new Action(() => train.TrainName.Visible = true));
-            train.TrainName.Invoke(new Action(() => train.TrainName.Location = lblPos));
+            var lblPos = train.EstacionActual.ObtenerCoordenadas(train);
+            train.lTrenNombre.Invoke(new Action(() => train.lTrenNombre.Visible = true));
+            train.lTrenNombre.Invoke(new Action(() => train.lTrenNombre.Location = lblPos));
         }
     }
 }
