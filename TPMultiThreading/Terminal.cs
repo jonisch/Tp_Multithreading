@@ -34,7 +34,7 @@ namespace TPMultiThreading
         {
             andenes.Remove(tren);
 
-            // Le cambiamos la direccion al tren.
+            //Cambio la direccion al tren.
             if (EstacionProxima == null)
             {
                 tren.Direccion = Direccion.VUELTA;
@@ -74,7 +74,6 @@ namespace TPMultiThreading
             {
                 var nroAnden = andenes.IndexOf(tren) + 1;
                 var nuevaUbicacion = new Point(Ubicacion.X - 50, (16 + (nroAnden * 47)));
-                //(Ubicacion.Y + (nroAnden * 50)));
                 return nuevaUbicacion;
             }
 
@@ -83,7 +82,6 @@ namespace TPMultiThreading
                 return new Point(Ubicacion.X, Ubicacion.Y + 55);
             }
             return Ubicacion;
-
         }
         public IEstacion ObtenerEstacionProxima()
         {
@@ -102,7 +100,6 @@ namespace TPMultiThreading
             return EstacionAnterior;
 
         }
-
         public string ObtenerNombre()
         {
             return Nombre;

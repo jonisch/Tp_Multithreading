@@ -51,7 +51,7 @@
             // 
             // btnAddTrain
             // 
-            this.btnAddTrain.Location = new System.Drawing.Point(159, 35);
+            this.btnAddTrain.Location = new System.Drawing.Point(76, 35);
             this.btnAddTrain.Name = "btnAddTrain";
             this.btnAddTrain.Size = new System.Drawing.Size(49, 23);
             this.btnAddTrain.TabIndex = 1;
@@ -78,7 +78,7 @@
             this.groupBox1.Size = new System.Drawing.Size(217, 109);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "New Train Options";
+            this.groupBox1.Text = "Nuevo Tren";
             // 
             // tableLayoutPanel1
             // 
@@ -100,7 +100,7 @@
             // 
             // numSpeed
             // 
-            this.numSpeed.Location = new System.Drawing.Point(159, 3);
+            this.numSpeed.Location = new System.Drawing.Point(76, 3);
             this.numSpeed.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -112,7 +112,7 @@
             0,
             0});
             this.numSpeed.Name = "numSpeed";
-            this.numSpeed.Size = new System.Drawing.Size(49, 26);
+            this.numSpeed.Size = new System.Drawing.Size(66, 26);
             this.numSpeed.TabIndex = 1;
             this.numSpeed.Value = new decimal(new int[] {
             100,
@@ -126,9 +126,9 @@
             this.label1.Location = new System.Drawing.Point(3, 3);
             this.label1.Margin = new System.Windows.Forms.Padding(3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(150, 19);
+            this.label1.Size = new System.Drawing.Size(67, 19);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Speed (Lower = Faster)";
+            this.label1.Text = "Velocidad";
             // 
             // groupBox2
             // 
@@ -138,7 +138,7 @@
             this.groupBox2.Size = new System.Drawing.Size(1067, 155);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Active Trains";
+            this.groupBox2.Text = "Trenes Activos";
             // 
             // tableActiveTrains
             // 
@@ -147,7 +147,7 @@
             this.tableActiveTrains.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableActiveTrains.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableActiveTrains.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableActiveTrains.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 401F));
+            this.tableActiveTrains.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 601F));
             this.tableActiveTrains.Controls.Add(this.label5, 3, 0);
             this.tableActiveTrains.Controls.Add(this.label4, 1, 0);
             this.tableActiveTrains.Controls.Add(this.label3, 0, 0);
@@ -168,9 +168,9 @@
             this.label5.Location = new System.Drawing.Point(463, 3);
             this.label5.Margin = new System.Windows.Forms.Padding(3);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(49, 19);
+            this.label5.Size = new System.Drawing.Size(55, 19);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Status";
+            this.label5.Text = "Estado";
             // 
             // label4
             // 
@@ -181,7 +181,8 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(110, 19);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Current Station";
+            this.label4.Text = "Estación Actual";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label3
             // 
@@ -192,7 +193,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 19);
             this.label3.TabIndex = 6;
-            this.label3.Text = "Train #";
+            this.label3.Text = "Tren #";
             // 
             // label6
             // 
@@ -203,7 +204,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(84, 19);
             this.label6.TabIndex = 7;
-            this.label6.Text = "Destination";
+            this.label6.Text = "Destino";
             // 
             // Main
             // 

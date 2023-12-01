@@ -8,14 +8,14 @@ namespace TPMultiThreading
 {
     public class Central
     {
-        public List<IEstacion> Stations = new List<IEstacion>();
+        public List<IEstacion> Estaciones = new List<IEstacion>();
         private static readonly Queue<Tren> _trainDeposit = new Queue<Tren>();
         private static readonly List<Tren> _activeTrains = new List<Tren>();
         public static readonly object Locker = new object();
 
         public Central()
         {
-            var stationList = new List<string>
+            var listaEstaciones = new List<string>
             {
                 "Retiro",
                 "3 de Febrero",
@@ -34,39 +34,38 @@ namespace TPMultiThreading
                 "José León Suarez"
             };
 
-            for (var i = 0; i < stationList.Count; i++)
+            for (var i = 0; i < listaEstaciones.Count; i++)
             {
-                //var stationLocation = new Point(105, 130);
-                var stationLocation = new Point(160, 130);
-                stationLocation.X += (62*i);
+                var ubicacionEstacion = new Point(180, 130);
+                ubicacionEstacion.X += (62 * i);
 
-                IEstacion tempStation;                  
-                if (stationList[i] == "Retiro" || stationList[i] == "José León Suarez")
+                IEstacion tempEstacion;
+                if (listaEstaciones[i] == "Retiro" || listaEstaciones[i] == "José León Suarez")
                 {
-                    var nroAndenes = stationList[i] == "Retiro" ? 5 : 2;
-                    tempStation = new Terminal(nroAndenes)
+                    var nroAndenes = listaEstaciones[i] == "Retiro" ? 5 : 2;
+                    tempEstacion = new Terminal(nroAndenes)
                     {
-                        Nombre = stationList[i],
-                        Ubicacion = stationLocation
+                        Nombre = listaEstaciones[i],
+                        Ubicacion = ubicacionEstacion
                     };
                 }
                 else
                 {
-                    tempStation = new Estacion
+                    tempEstacion = new Estacion
                     {
-                        Nombre = stationList[i],
+                        Nombre = listaEstaciones[i],
                         AndenVuelta = null,
-                        Ubicacion = stationLocation
+                        Ubicacion = ubicacionEstacion
                     };
                 }
 
-                if (Stations.ElementAtOrDefault(i - 1) != null)
+                if (Estaciones.ElementAtOrDefault(i - 1) != null)
                 {
-                    tempStation.SetearEstacionAnterior(Stations[i - 1]);
-                    Stations[i - 1].SetearEstacionProxima(tempStation);
+                    tempEstacion.SetearEstacionAnterior(Estaciones[i-1]);
+                    Estaciones[i - 1].SetearEstacionProxima(tempEstacion);
                 }
 
-                Stations.Add(tempStation);
+                Estaciones.Add(tempEstacion);
             }
 
             var depositMonitor = new Thread(DepositMonitor);
@@ -90,17 +89,17 @@ namespace TPMultiThreading
             lock (Locker)
             {
                 Monitor.Wait(Locker);
-                var train = _trainDeposit.Dequeue();
-                _activeTrains.Add(train);
-                train.EstacionActual = Stations[0];
-                train.Numero = _activeTrains.Count;
-                train.lTrenNombre.Invoke(new Action(() => train.lTrenNombre.Text = "Train #" + train.Numero.ToString()));
-               
-                
-                
-                Stations[0].Arribar(train);
+                var tren = _trainDeposit.Dequeue();
+                _activeTrains.Add(tren);
+                tren.EstacionActual = Estaciones[0];
+                tren.Numero = _activeTrains.Count;
+                tren.lTrenNombre.Invoke(new Action(() => tren.lTrenNombre.Text = "Tren #" + tren.Numero.ToString()));
 
-                var thr = new Thread(train.Inicio);
+
+
+                Estaciones[0].Arribar(tren);
+
+                var thr = new Thread(tren.Inicio);
                 thr.Start();
 
                 Monitor.Pulse(Locker);
@@ -114,7 +113,7 @@ namespace TPMultiThreading
             {
                 lock (Locker)
                 {
-                    if (!_trainDeposit.Any() || Stations[0].EstaDisponible(Direccion.IDA))
+                    if (!_trainDeposit.Any() || Estaciones[0].EstaDisponible(Direccion.IDA))
                     {
                         continue;
                     }
@@ -124,27 +123,27 @@ namespace TPMultiThreading
             }
         }
 
-        public static void ActualizarEstado(Tren train)
+        public static void ActualizarEstado(Tren tren)
         {
-            train.lNumeroTren.Invoke(new Action(() => train.lNumeroTren.Text = train.Numero.ToString()));
-            train.lNumeroEstacionActual.Invoke(new Action(() => train.lNumeroEstacionActual.Text = train.EstacionActual.ObtenerNombre()));
-            train.lEstado.Invoke(new Action(() => train.lEstado.Text = train.Estado));
+            tren.lNumeroTren.Invoke(new Action(() => tren.lNumeroTren.Text = tren.Numero.ToString()));
+            tren.lNumeroEstacionActual.Invoke(new Action(() => tren.lNumeroEstacionActual.Text = tren.EstacionActual.ObtenerNombre()));
+            tren.lEstado.Invoke(new Action(() => tren.lEstado.Text = tren.Estado));
 
 
-            var destination = train.Direccion == Direccion.IDA
-                ? train.EstacionActual.ObtenerEstacionProxima().ObtenerNombre()
-                : train.EstacionActual.ObtenerEstacionAnterior().ObtenerNombre();
+            var destino = tren.Direccion == Direccion.IDA
+                ? tren.EstacionActual.ObtenerEstacionProxima().ObtenerNombre()
+                : tren.EstacionActual.ObtenerEstacionAnterior().ObtenerNombre();
 
-            switch (destination)
+            switch (destino)
             {
-                case null when train.Direccion == Direccion.IDA:
-                    destination = train.EstacionActual.ObtenerEstacionAnterior().ObtenerNombre();
+                case null when tren.Direccion == Direccion.IDA:
+                    destino = tren.EstacionActual.ObtenerEstacionAnterior().ObtenerNombre();
                     break;
-                case null when train.Direccion == Direccion.VUELTA:
-                    destination = train.EstacionActual.ObtenerEstacionProxima().ObtenerNombre();
+                case null when tren.Direccion == Direccion.VUELTA:
+                    destino = tren.EstacionActual.ObtenerEstacionProxima().ObtenerNombre();
                     break;
             }
-            train.lDestino.Invoke(new Action(() => train.lDestino.Text = destination));
+            tren.lDestino.Invoke(new Action(() => tren.lDestino.Text = destino));
         }
 
 
